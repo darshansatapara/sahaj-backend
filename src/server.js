@@ -23,7 +23,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:8081","http://192.168.215.43"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:8081",
+      "http://192.168.215.43",
+    ],
     credentials: true,
   })
 );
@@ -40,8 +44,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Something went wrong!" });
 });
 
-const PORT = process.env.PORT || 5000;
+// For local development
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// For Vercel deployment
+export default app;
