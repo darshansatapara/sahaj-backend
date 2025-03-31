@@ -6,7 +6,7 @@ dotenv.config();
 
 const pool = new Pool({
   connectionString:
-    "postgresql://sahaj_owner:npg_o7sxOwSYzK3Q@ep-small-math-a8rs6yts-pooler.eastus2.azure.neon.tech/sahaj?sslmode=require",
+    "process.env.DATABASE_URL",
 });
 
 // Test connection
